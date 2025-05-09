@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">CUCEI DataHub</string>
     <string name="content_description_logo">El logo de nuestra universidad</string>
+    <string name="content_description_logo_udg">El logo universitario</string>
+    <string name="text_view_welcome">¡Bienvenido!</string>
+    <string name="text_view_preservando">PRESERVANDO EL CONOCIMIENTO</string>
+    <string name="email_hint">email@(academicos/alumnos).udg.mx</string>
+    <string name="text_view_create">Crear una cuenta</string>
+    <string name="text_view_instrucción">Ingresa tu correo institucional</string>
+    <string name="button_continuar">Continuar</string>
+    <string name="button_iniciar">Iniciar Sesión</string>
+    <string name="text_view_login">Inicia Sesión</string>
+    <string name="password_hint">contraseña</string>
+    <string name="text_view_datos">INGRESA TUS DATOS</string>
+    <string name="button_regresar">Regresar</string>
+    <string name="button_registrar">Registrar</string>
+    <string name="textarea_nombre">nombre(s)</string>
+    <string name="textarea_apellidop">apellido paterno</string>
+    <string name="textarea_apellidom">apellido materno</string>
+    <string name="textarea_matricula">matrícula</string>
+    <string name="text_view_tc">Al hacer clic en continuar, aceptas nuestros Términos de Servicio y Políticas de Privacidad</string>
 </resources>
