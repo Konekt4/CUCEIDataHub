@@ -18,5 +18,14 @@
     <string name="textarea_apellidop">apellido paterno</string>
     <string name="textarea_apellidom">apellido materno</string>
     <string name="textarea_matricula">matrícula</string>
+    <string name="title1">Inicio</string>
+    <string name="title2">Explorar</string>
+    <string name="title3">Compras</string>
+    <string name="title4">Notificación</string>
+    <string name="title5">Perfil</string>
+    <string name="text_view_destacado">Documentos destacados</string>
+    <string name="busqueda">Buscar material académico</string>
+    <string name="upload">Cargar Documentos</string>
+    <string name="form">Crear Formularios</string>
     <string name="text_view_tc">Al hacer clic en continuar, aceptas nuestros Términos de Servicio y Políticas de Privacidad</string>
 </resources>
