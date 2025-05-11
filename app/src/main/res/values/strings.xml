@@ -27,5 +27,6 @@
     <string name="busqueda">Buscar material académico</string>
     <string name="upload">Cargar Documentos</string>
     <string name="form">Crear Formularios</string>
+    <string name="close">Cerrar Sesión</string>
     <string name="text_view_tc">Al hacer clic en continuar, aceptas nuestros Términos de Servicio y Políticas de Privacidad</string>
 </resources>

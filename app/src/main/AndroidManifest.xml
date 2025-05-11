@@ -24,6 +24,8 @@
         <activity android:name=".CrearActivity" />
         <activity android:name=".IniciarSActivity" />
         <activity android:name=".LobbyActivity"/>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".NotificationsActivity"/>
     </application>
 
 </manifest>
