@@ -1,6 +1,7 @@
 package com.example.cuceidatahub;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -63,8 +64,15 @@ public class IniciarSActivity extends AppCompatActivity {
                 null, null, null)) {
 
             if (cursor.moveToFirst()) {
+                // Guarda el correo en SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("USER_EMAIL", email);  // Guarda el correo
+                editor.apply();
+
+                // Redirigir a LobbyActivity
                 Intent intent = new Intent(IniciarSActivity.this, LobbyActivity.class);
-                intent.putExtra("USER_EMAIL", email);
+                intent.putExtra("USER_EMAIL", email);  // Pasar el correo a LobbyActivity
                 startActivity(intent);
                 finish();
             } else {

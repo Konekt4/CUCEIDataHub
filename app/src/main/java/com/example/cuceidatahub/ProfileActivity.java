@@ -1,6 +1,7 @@
 package com.example.cuceidatahub;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -61,20 +62,31 @@ public class ProfileActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        String correoUsuario = obtenerCorreoUsuarioLogueado();
+        // Obtener el correo del Intent
+        String correoUsuario = getIntent().getStringExtra("USER_EMAIL");
 
-        cargarDatosUsuario(correoUsuario);
+        if (correoUsuario != null && !correoUsuario.isEmpty()) {
+            cargarDatosUsuario(correoUsuario); // Pasar el correo al método de carga
+        } else {
+            tvNombre.setText("Correo no encontrado");
+        }
 
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Cierra la actividad
+                // Crear un Intent para regresar a la actividad de inicio
+                Intent intent = new Intent(ProfileActivity.this, InicioActivity.class);
+
+                // Usar FLAGS para limpiar la pila de actividades y evitar regresar
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Iniciar la actividad de inicio
+                startActivity(intent);
+
+                // Finalizar la actividad actual (ProfileActivity)
+                finish();
             }
         });
-    }
-
-    private String obtenerCorreoUsuarioLogueado() {
-        return "usuario@ejemplo.com";
     }
 
     private void cargarDatosUsuario(String correo) {
@@ -137,7 +149,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void abrirNotificaciones() {
-        // Asegúrate de tener una NotificationsActivity creada
         Intent intent = new Intent(this, NotificationsActivity.class);
         startActivity(intent);
     }
@@ -151,6 +162,17 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Obtener el correo desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        String correoUsuario = sharedPreferences.getString("USER_EMAIL", null);
+
+        if (correoUsuario != null && !correoUsuario.isEmpty()) {
+            cargarDatosUsuario(correoUsuario);  // Cargar datos del usuario con el correo
+        } else {
+            tvNombre.setText("Correo no encontrado");
+        }
+
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
     }
 }
