@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class NotificationsActivity extends AppCompatActivity {
-
+public class TiendaActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notificacion);
+        setContentView(R.layout.tienda);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
@@ -20,8 +19,7 @@ public class NotificationsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bottomNavigation.setSelectedItemId(R.id.nav_notifications);
+        bottomNavigation.setSelectedItemId(R.id.nav_shop);
     }
 
 }
-

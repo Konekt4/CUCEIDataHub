@@ -23,10 +23,8 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lobby);
 
-        // Obtener el correo del usuario del Intent
         String userEmail = getIntent().getStringExtra("USER_EMAIL");
 
-        // Inicializar vistas
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,15 +33,12 @@ public class LobbyActivity extends AppCompatActivity {
         btnCreateForms = findViewById(R.id.btnCreateForms);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        // Configurar el BottomNavigationView
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                // Aquí debes reemplazar los IDs con los de tu menú bottom_nav_menu.xml
                 if (itemId == R.id.nav_home) {
-                    // Ya estamos en Lobby, no hacemos nada
                     return true;
                 } else if (itemId == R.id.nav_profile) {
                     abrirPerfil(userEmail);
@@ -51,12 +46,17 @@ public class LobbyActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_notifications) {
                     abrirNotificaciones();
                     return true;
+                } else if (itemId == R.id.nav_explorar) {
+                    abrirExplorador();
+                    return true;
+                } else if (itemId == R.id.nav_shop) {
+                    abrirTienda();
+                    return true;
                 }
                 return false;
             }
         });
 
-        // Configurar el SearchView
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -70,7 +70,6 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        // Configurar botones
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +84,14 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void abrirTienda() {
+        Intent intent = new Intent(this, TiendaActivity.class);
+        startActivity(intent);
+    }
+    private void abrirExplorador() {
+        Intent intent = new Intent(this, ExploradorActivity.class);
+        startActivity(intent);
+    }
     private void abrirPerfil(String email) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("USER_EMAIL", email);
@@ -99,24 +105,17 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     private void buscarMaterial(String query) {
-        // Implementa la lógica de búsqueda aquí
-        // Puedes mostrar resultados en un RecyclerView o abrir otra actividad
     }
 
     private void subirArchivo() {
-        // Implementa la lógica para subir archivos
-        // Puedes usar un Intent para seleccionar archivos o abrir otra actividad
     }
 
     private void crearFormulario() {
-        // Implementa la lógica para crear formularios
-        // Puedes abrir otra actividad para este propósito
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Asegurarse de que el ítem de inicio esté seleccionado
         bottomNavigation.setSelectedItemId(R.id.nav_home);
     }
 }

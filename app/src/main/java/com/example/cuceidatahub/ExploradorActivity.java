@@ -6,22 +6,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class NotificationsActivity extends AppCompatActivity {
+public class ExploradorActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notificacion);
+        setContentView(R.layout.explorador);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
-    }
+}
     @Override
     protected void onResume() {
         super.onResume();
-        bottomNavigation.setSelectedItemId(R.id.nav_notifications);
+        bottomNavigation.setSelectedItemId(R.id.nav_explorar);
     }
 
 }
-

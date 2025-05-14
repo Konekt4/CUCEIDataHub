@@ -4,20 +4,23 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private TextView tvNombre, tvMatricula, tvCorreo;
     private Button btnCerrar;
-    private ImageView ivFotoPerfil;
     private BottomNavigationView bottomNavigation;
 
     @Override
@@ -30,19 +33,38 @@ public class ProfileActivity extends AppCompatActivity {
         tvMatricula = findViewById(R.id.matricula);
         tvCorreo = findViewById(R.id.correo);
         btnCerrar = findViewById(R.id.button3);
-        ivFotoPerfil = findViewById(R.id.imageView3);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        // Inicializar helper de base de datos
+        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.nav_home) {
+                    abrirLobby();
+                    return true;
+                } else if (itemId == R.id.nav_profile) {
+                    return true;
+                } else if (itemId == R.id.nav_notifications) {
+                    abrirNotificaciones();
+                    return true;
+                } else if (itemId == R.id.nav_explorar) {
+                    abrirExplorador();
+                    return true;
+                } else if (itemId == R.id.nav_shop) {
+                    abrirTienda();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         dbHelper = new DatabaseHelper(this);
 
-        // Obtener el correo del usuario logueado
         String correoUsuario = obtenerCorreoUsuarioLogueado();
 
-        // Cargar datos del usuario
         cargarDatosUsuario(correoUsuario);
 
-        // Configurar el botón de cerrar
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,16 +74,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private String obtenerCorreoUsuarioLogueado() {
-        // Implementa este método para obtener el correo del usuario actual
-        // Puede venir de SharedPreferences, extras del Intent, etc.
-        // Por ahora devuelve un valor fijo - reemplaza con tu implementación real
         return "usuario@ejemplo.com";
     }
 
     private void cargarDatosUsuario(String correo) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Columnas que queremos obtener
         String[] columnas = {
                 DatabaseHelper.COLUMN_NOMBRE,
                 DatabaseHelper.COLUMN_APELLIDO_P,
@@ -70,11 +88,9 @@ public class ProfileActivity extends AppCompatActivity {
                 DatabaseHelper.COLUMN_EMAIL
         };
 
-        // Filtro para buscar por correo
         String filtro = DatabaseHelper.COLUMN_EMAIL + " = ?";
         String[] argumentosFiltro = { correo };
 
-        // Ejecutar consulta
         Cursor cursor = db.query(
                 DatabaseHelper.TABLE_USUARIOS,   // Tabla
                 columnas,                       // Columnas a devolver
@@ -86,31 +102,44 @@ public class ProfileActivity extends AppCompatActivity {
         );
 
         if (cursor.moveToFirst()) {
-            // Obtener datos del cursor
             String nombre = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOMBRE));
             String apellidoP = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_APELLIDO_P));
             String apellidoM = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_APELLIDO_M));
             String matricula = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_MATRICULA));
             String email = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_EMAIL));
 
-            // Combinar nombre completo
             String nombreCompleto = nombre + " " + apellidoP;
             if (apellidoM != null && !apellidoM.isEmpty()) {
                 nombreCompleto += " " + apellidoM;
             }
 
-            // Mostrar datos en la interfaz
             tvNombre.setText(nombreCompleto);
             tvMatricula.setText(matricula);
             tvCorreo.setText(email);
 
-            // Aquí podrías cargar una foto de perfil si la tienes en la base de datos
-            // ivFotoPerfil.setImageBitmap(...);
         } else {
-            // Usuario no encontrado
             tvNombre.setText("Usuario no encontrado");
         }
         cursor.close();
+    }
+
+    private void abrirTienda() {
+        Intent intent = new Intent(this, TiendaActivity.class);
+        startActivity(intent);
+    }
+    private void abrirExplorador() {
+        Intent intent = new Intent(this, ExploradorActivity.class);
+        startActivity(intent);
+    }
+    private void abrirLobby() {
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
+    }
+
+    private void abrirNotificaciones() {
+        // Asegúrate de tener una NotificationsActivity creada
+        Intent intent = new Intent(this, NotificationsActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -122,7 +151,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Asegurarse de que el ítem de inicio esté seleccionado
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
     }
 }
