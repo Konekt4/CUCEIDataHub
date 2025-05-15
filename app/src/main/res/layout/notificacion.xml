@@ -14,21 +14,33 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="Notificaciones"
+                android:textAlignment="center"
+                android:gravity="center" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="59dp"
+                android:layout_height="64dp"
+                app:srcCompat="@drawable/bell" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="Sin notificaciones nuevas"
+                android:textAlignment="center"
+                android:gravity="center" />
 
         </LinearLayout>
     </FrameLayout>

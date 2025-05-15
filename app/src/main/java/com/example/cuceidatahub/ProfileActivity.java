@@ -74,16 +74,9 @@ public class ProfileActivity extends AppCompatActivity {
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crear un Intent para regresar a la actividad de inicio
                 Intent intent = new Intent(ProfileActivity.this, InicioActivity.class);
-
-                // Usar FLAGS para limpiar la pila de actividades y evitar regresar
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                // Iniciar la actividad de inicio
                 startActivity(intent);
-
-                // Finalizar la actividad actual (ProfileActivity)
                 finish();
             }
         });
@@ -163,12 +156,11 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Obtener el correo desde SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         String correoUsuario = sharedPreferences.getString("USER_EMAIL", null);
 
         if (correoUsuario != null && !correoUsuario.isEmpty()) {
-            cargarDatosUsuario(correoUsuario);  // Cargar datos del usuario con el correo
+            cargarDatosUsuario(correoUsuario);
         } else {
             tvNombre.setText("Correo no encontrado");
         }
